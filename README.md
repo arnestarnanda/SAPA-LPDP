@@ -5,11 +5,10 @@ Web SAPA-LPDP : https://sapa-lpdp-525957089564.us-central1.run.app
 [![Built with Gemma](https://img.shields.io/badge/Model-Gemma_4_26B_MaaS-orange.svg)](https://cloud.google.com/vertex-ai)
 [![Google Cloud Vertex AI](https://img.shields.io/badge/Google_Cloud-Vertex_AI-4285F4.svg)](https://cloud.google.com/)
 [![Built with Antigravity](https://img.shields.io/badge/Agent-Google_Antigravity-4285F4.svg)](https://antigravity.google.com)
-[![FastAPI](https://img.shields.io/badge/UI-FastAPI_Web_Preview-009688.svg)](https://fastapi.tiangolo.com/)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Cloud_Run-4285F4.svg?style=for-the-badge&logo=googlecloud)](https://sapa-lpdp-525957089564.us-central1.run.app)
 
-> **SAPA LPDP (Scholarship Application & Preparation Assistant)** adalah asisten AI interaktif dan konsultan pintar untuk pendaftaran Beasiswa LPDP (Lembaga Pengelola Dana Pendidikan) resmi. Ditenagai oleh **Google Gemma 4 26B** melalui **Google Cloud Vertex AI Model Garden**, platform ini menyediakan penelusuran dokumen RAG, analisis kelayakan CV, *Live Web Scraping* persyarat kampus, serta database **14.442 Perguruan Tinggi Mitra LPDP**.
-
-Dikembangkan untuk **Gemma Hackathon – Cloud Next Extended**.
+> **🚀 LIVE PUBLIC APP:** Aplikasi ini telah dipublikasikan dan dapat langsung dicoba tanpa instalasi di:  
+> 👉 **[https://sapa-lpdp-525957089564.us-central1.run.app](https://sapa-lpdp-525957089564.us-central1.run.app)**
 
 ---
 
@@ -108,9 +107,9 @@ SAPA-LPDP/
    pip install -r requirements.txt
    ```
 
-2. **Set Google Cloud Project:**
+2. **Set Google Cloud Project (GCP Project ID Anda):**
    ```bash
-   export GOOGLE_CLOUD_PROJECT="kodingdeepdive0826-9569"
+   export GOOGLE_CLOUD_PROJECT="your-gcp-project-id" # Ganti dengan Project ID GCP Anda
    ```
 
 3. **Run RAG Document Ingestion (Optional - Cache Pre-loaded):**

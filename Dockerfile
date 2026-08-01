@@ -24,7 +24,7 @@ COPY . .
 EXPOSE 8080
 
 # Health check endpoint for container platform
-HEALTHCHECK CMD curl --fail http://localhost:8080/_stcore/health || exit 1
+HEALTHCHECK CMD curl --fail http://localhost:8080/api/system-status || exit 1
 
-# Launch Streamlit app on port 8080
-ENTRYPOINT ["streamlit", "run", "app.py", "--server.port=8080", "--server.address=0.0.0.0"]
+# Launch FastAPI app on port 8080
+CMD ["python3", "app.py"]
