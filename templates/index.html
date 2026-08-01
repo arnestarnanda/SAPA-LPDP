@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAPA LPDP — Scholarship Application & Preparation Assistant</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Marked JS for Markdown rendering -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        :root {
+            --bg-primary: #ffffff;
+            --bg-body: #f8fafc;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+            --primary: #f26712;
+            --primary-hover: #d95305;
+            --primary-light: #fff3eb;
+            --accent-green: #10b981;
+            --accent-red: #ef4444;
+            --border-color: #e2e8f0;
+            --radius-md: 12px;
+            --radius-lg: 18px;
+            --shadow-sm: 0 4px 12px -2px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 10px 25px -3px rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-dark);
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            width: 310px;
+            background: #ffffff;
+            border-right: 1px solid var(--border-color);
+            padding: 1.8rem 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            overflow-y: auto;
+            position: fixed;
+            height: 100vh;
+            left: 0;
+            top: 0;
+            z-index: 100;
+            box-shadow: 4px 0 15px rgba(0,0,0,0.02);
+        }
+
+        .brand-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-bottom: 1.2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .brand-logo {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, #f26712 0%, #d95305 100%);
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            font-weight: 800;
+            box-shadow: 0 4px 12px rgba(242, 103, 18, 0.3);
+        }
+
+        .brand-title {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #0f172a;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .brand-subtitle {
+            font-size: 0.72rem;
+            color: #64748b;
+            font-weight: 600;
+            margin-top: 2px;
+        }
+
+        /* Nav Menu in Sidebar */
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .nav-item {
+            padding: 0.85rem 1rem;
+            border-radius: 12px;
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: #475569;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            border: 1px solid transparent;
+        }
+
+        .nav-item:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .nav-item.active {
+            background: var(--primary-light);
+            color: var(--primary);
+            border-color: rgba(242, 103, 18, 0.2);
+            box-shadow: 0 2px 8px rgba(242, 103, 18, 0.08);
+        }
+
+        .section-title {
+            font-size: 0.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #64748b;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .form-group {
+            margin-bottom: 0.9rem;
+        }
+
+        .form-label {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: #334155;
+            margin-bottom: 0.3rem;
+            display: block;
+        }
+
+        .form-select, .form-input {
+            width: 100%;
+            padding: 0.6rem 0.8rem;
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+            font-family: inherit;
+            font-size: 0.88rem;
+            background: #ffffff;
+            color: #0f172a;
+            transition: border-color 0.2s;
+        }
+
+        .form-select:focus, .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(242, 103, 18, 0.12);
+        }
+
+        .status-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 0.8rem 1rem;
+            font-size: 0.82rem;
+        }
+
+        .status-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.3rem;
+        }
+
+        .badge-status {
+            background: #dcfce7;
+            color: #15803d;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+        }
+
+        /* Main Content Container */
+        .main-wrapper {
+            margin-left: 310px;
+            flex: 1;
+            padding: 2rem;
+            max-width: 1400px;
+        }
+
+        /* Hero Banner */
+        .hero-banner {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #f26712 100%);
+            border-radius: var(--radius-lg);
+            padding: 2.2rem 2.5rem;
+            color: #ffffff;
+            margin-bottom: 2rem;
+            box-shadow: 0 12px 30px -5px rgba(242, 103, 18, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .hero-banner h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.4rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .hero-banner p {
+            color: #f1f5f9;
+            font-size: 1.05rem;
+            margin-bottom: 1rem;
+            max-width: 900px;
+        }
+
+        .badge-pills {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .pill {
+            background: rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(8px);
+            padding: 5px 14px;
+            border-radius: 9999px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+        }
+
+        .view-panel {
+            display: none;
+        }
+
+        .view-panel.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Card Container */
+        .content-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.8rem;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Chat Styles */
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            height: 640px;
+            background: #ffffff;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 1.5rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            background: #f8fafc;
+        }
+
+        .chat-bubble {
+            max-width: 82%;
+            padding: 1.1rem 1.4rem;
+            border-radius: 16px;
+            font-size: 0.95rem;
+            line-height: 1.65;
+            position: relative;
+        }
+
+        .chat-bubble.user {
+            align-self: flex-end;
+            background: linear-gradient(135deg, #f26712 0%, #d95305 100%);
+            color: #ffffff;
+            border-bottom-right-radius: 4px;
+            box-shadow: 0 4px 12px rgba(242, 103, 18, 0.2);
+        }
+
+        .chat-bubble.user a {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+        .chat-bubble.assistant {
+            align-self: flex-start;
+            background: #ffffff;
+            color: #0f172a;
+            border: 1px solid var(--border-color);
+            border-bottom-left-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+
+        .chat-bubble.assistant a {
+            color: var(--primary);
+            font-weight: 700;
+            text-decoration: none;
+            border-bottom: 1px solid var(--primary);
+        }
+
+        .chat-bubble.assistant a:hover {
+            color: var(--primary-hover);
+        }
+
+        .chat-bubble.blocked {
+            background: #fef2f2;
+            border-left: 5px solid var(--accent-red);
+            color: #991b1b;
+        }
+
+        .chat-bubble p {
+            margin-bottom: 0.6rem;
+        }
+
+        .chat-bubble p:last-child {
+            margin-bottom: 0;
+        }
+
+        .chat-bubble ul, .chat-bubble ol {
+            margin-left: 1.2rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .chat-input-area {
+            padding: 1rem 1.2rem;
+            background: #ffffff;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-attach {
+            background: #f1f5f9;
+            color: #475569;
+            border: 1px solid #cbd5e1;
+            padding: 0.85rem 1rem;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.88rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn-attach:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .chat-input-area input[type="text"] {
+            flex: 1;
+            padding: 0.85rem 1.2rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 0.95rem;
+        }
+
+        .chat-input-area input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(242, 103, 18, 0.12);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.85rem 1.6rem;
+            border-radius: 12px;
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-primary:disabled {
+            background: #cbd5e1;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.3rem;
+            border-radius: 10px;
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.88rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn-secondary:hover {
+            background: #059669;
+        }
+
+        .chip-prompts {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 0.8rem;
+        }
+
+        .prompt-chip {
+            background: var(--primary-light);
+            color: var(--primary);
+            font-size: 0.82rem;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 9999px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid rgba(242, 103, 18, 0.2);
+        }
+
+        .prompt-chip:hover {
+            background: #ffe3d9;
+            transform: scale(1.02);
+        }
+
+        /* Upload Area */
+        .upload-box {
+            border: 2px dashed #cbd5e1;
+            border-radius: 12px;
+            padding: 1.8rem;
+            text-align: center;
+            background: #f8fafc;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .upload-box:hover {
+            border-color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .upload-box p {
+            font-size: 0.88rem;
+            color: #64748b;
+            margin-top: 0.4rem;
+        }
+
+        .file-status {
+            font-size: 0.85rem;
+            padding: 0.7rem 1rem;
+            border-radius: 8px;
+            margin-top: 0.8rem;
+            background: #e0f2fe;
+            color: #0369a1;
+            font-weight: 600;
+            display: none;
+        }
+
+        /* Table Styling */
+        .table-responsive {
+            overflow-x: auto;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            margin-top: 1rem;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.88rem;
+            text-align: left;
+        }
+
+        .data-table th {
+            background: #f1f5f9;
+            color: #334155;
+            font-weight: 700;
+            padding: 0.85rem 1rem;
+            border-bottom: 2px solid var(--border-color);
+            white-space: nowrap;
+        }
+
+        .data-table td {
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+            color: #0f172a;
+        }
+
+        .data-table tr:hover {
+            background: #f8fafc;
+        }
+
+        .data-table a {
+            color: var(--primary);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .data-table a:hover {
+            text-decoration: underline;
+        }
+
+        .badge-kat {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .badge-lpdp { background: #ffe3d9; color: #d95305; }
+        .badge-bib { background: #fef3c7; color: #92400e; }
+        .badge-garuda { background: #e0e7ff; color: #3730a3; }
+
+        .pagination-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.2rem;
+            padding-top: 0.8rem;
+        }
+
+        .btn-page {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-color);
+            background: #ffffff;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .btn-page:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .cv-eval-result {
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin-top: 1.2rem;
+            display: none;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.8s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="brand-header">
+            <div class="brand-logo">🎓</div>
+            <div>
+                <div class="brand-title">SAPA LPDP</div>
+                <div class="brand-subtitle">Scholarship Application Assistant</div>
+            </div>
+        </div>
+
+        <!-- MENU NAVIGATION IN SIDEBAR -->
+        <div>
+            <div class="section-title">📌 Menu Utama</div>
+            <nav class="nav-menu">
+                <a class="nav-item active" onclick="switchView(this, 'view-chat')">
+                    <span>💬</span> <span>SAPA LPDP</span>
+                </a>
+                <a class="nav-item" onclick="switchView(this, 'view-cv')">
+                    <span>📊</span> <span>Evaluasi & Analisis CV</span>
+                </a>
+                <a class="nav-item" onclick="switchView(this, 'view-univ')">
+                    <span>🏛️</span> <span>Daftar Perguruan Tinggi</span>
+                </a>
+            </nav>
+        </div>
+
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-wrapper">
+        
+        <!-- HERO BANNER -->
+        <div class="hero-banner">
+            <h1>🎓 SAPA LPDP</h1>
+            <p>Scholarship Application & Preparation Assistant — Asisten Cerdas Konsultasi, Evaluasi CV, dan Persiapan Pendaftaran Beasiswa LPDP Resmi.</p>
+            <div class="badge-pills">
+                <span class="pill">✨ Konsultasi LPDP & Tautan Kampus</span>
+                <span class="pill">📄 Analisis CV Langsung di Chat</span>
+                <span class="pill">🏛️ 3.700+ Perguruan Tinggi Terintegrasi</span>
+            </div>
+        </div>
+
+        <!-- VIEW 1: CHAT SAPA LPDP -->
+        <div class="view-panel active" id="view-chat">
+            <div class="chat-container">
+                <div class="chat-messages" id="chatMessages">
+                    <div class="chat-bubble assistant">
+                        <p>Selamat datang di <strong>SAPA LPDP (Scholarship Application & Preparation Assistant)</strong>! 👋<br><br>Saya adalah asisten pendaftaran dan persiapan Beasiswa LPDP Anda. Silakan tanyakan apa saja seputar syarat pendaftaran, rekomendasi universitas beserta link situs resminya, tips essay kontribusi, atau unggah CV Anda menggunakan tombol 📎 di bawah ini!</p>
+                    </div>
+                </div>
+                <div style="padding: 0 1.2rem 0.5rem 1.2rem; background: #ffffff;">
+                    <div id="chatAttachmentNotice" style="display:none; padding: 4px 10px; background: #e0f2fe; color: #0369a1; border-radius: 6px; font-size: 0.8rem; margin-bottom: 6px; font-weight: 600;"></div>
+                    <div class="chip-prompts">
+                        <span class="prompt-chip" onclick="quickPrompt('Sebutkan rekomendasi kampus top di ITB dan berikan link website resminya!')">🏛️ Website Resmi ITB</span>
+                        <span class="prompt-chip" onclick="quickPrompt('Apa syarat IELTS/TOEFL untuk LPDP S2 Luar Negeri Reguler?')">💡 Syarat IELTS LPDP S2</span>
+                        <span class="prompt-chip" onclick="quickPrompt('Bagaimana cara membuat Essai Kontribusi yang disukai reviewer LPDP?')">✍️ Tips Essay Kontribusi</span>
+                        <span class="prompt-chip" onclick="quickPrompt('Sebutkan universitas top Inggris mitra LPDP beserta tautan resminya!')">🇬🇧 Kampus Partner UK</span>
+                    </div>
+                </div>
+                <div class="chat-input-area">
+                    <button class="btn-attach" onclick="document.getElementById('chatCvInput').click()" title="Lampirkan CV untuk Analisis Chat">
+                        📎 <span>Lampirkan CV</span>
+                    </button>
+                    <input type="file" id="chatCvInput" accept=".pdf,.docx" style="display:none" onchange="handleChatFileUpload(this)">
+                    
+                    <input type="text" id="chatInput" placeholder="Ketik pertanyaan Anda seputar Beasiswa LPDP..." onkeypress="handleKeyPress(event)">
+                    <button class="btn-primary" id="sendBtn" onclick="sendMessage()">
+                        <span>Kirim</span> 🚀
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIEW 2: CV EVALUATOR -->
+        <div class="view-panel" id="view-cv">
+            <div class="content-card">
+                <h3 style="margin-bottom: 0.5rem; color: #0f172a;">📊 Evaluasi & Analisis CV Komprehensif</h3>
+                <p style="color: #64748b; margin-bottom: 1.5rem;">Unggah berkas CV Anda (.PDF / .DOCX) di bawah ini untuk mendapatkan review kelayakan rekam jejak akademik, kepemimpinan, dan rekomendasi konkret dari SAPA LPDP.</p>
+
+                <!-- CV Upload Box inside CV Tab -->
+                <div class="upload-box" onclick="document.getElementById('cvTabInput').click()">
+                    <div style="font-size: 2.2rem;">📤</div>
+                    <p style="font-weight: 700; color: #1e293b; margin-top: 0.5rem;">Unggah atau Drag & Drop Berkas CV Anda di Sini</p>
+                    <p>Format yang didukung: <strong>.PDF</strong> atau <strong>.DOCX</strong></p>
+                    <input type="file" id="cvTabInput" accept=".pdf,.docx" style="display:none" onchange="handleCvTabUpload(this)">
+                </div>
+
+                <div class="file-status" id="cvTabFileStatus"></div>
+
+                <div style="margin-top: 1.5rem;">
+                    <button class="btn-primary" id="btnEvalCv" onclick="evaluateCV()" disabled>
+                        <span>Jalankan Evaluasi CV Komprehensif</span> 🚀
+                    </button>
+                </div>
+
+                <div class="cv-eval-result" id="cvEvalResult">
+                    <h4 style="margin-bottom: 0.8rem; color: #0f172a;">📋 Hasil Evaluasi SAPA LPDP:</h4>
+                    <div id="cvEvalBody" style="font-size: 0.95rem; line-height: 1.7; color: #334155;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIEW 3: UNIVERSITY DIRECTORY TABLE -->
+        <div class="view-panel" id="view-univ">
+            <div class="content-card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 10px;">
+                    <div>
+                        <h3 style="margin-bottom: 0.2rem;">🏛️ Daftar Perguruan Tinggi</h3>
+                        <p style="color: #64748b; font-size: 0.9rem;">Cari, filter, dan telusuri daftar kampus, program studi, negara, beserta tautan website resminya.</p>
+                    </div>
+                    <a href="/api/download-excel" class="btn-secondary" target="_blank">
+                        📥 Download Data Excel (.xlsx)
+                    </a>
+                </div>
+
+                <!-- Filters Bar -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 1.2rem;">
+                    <div>
+                        <label class="form-label">🔍 Cari Kampus / Prodi</label>
+                        <input type="text" class="form-input" id="tableSearchQuery" placeholder="Cari nama universitas atau prodi..." oninput="debounceUnivSearch()">
+                    </div>
+                    <div>
+                        <label class="form-label">Jenjang Studi</label>
+                        <select class="form-select" id="tableJenjangSelect" onchange="loadUniversityTable(1)">
+                            <option value="Semua">Semua Jenjang</option>
+                            <option value="S2">Magister (S2)</option>
+                            <option value="S3">Doktor (S3)</option>
+                            <option value="Spesialis">Spesialis</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="form-label">Lokasi Kampus</label>
+                        <select class="form-select" id="tableLokasiSelect" onchange="loadUniversityTable(1)">
+                            <option value="Semua">Semua Lokasi</option>
+                            <option value="Dalam Negeri">Dalam Negeri</option>
+                            <option value="Luar Negeri">Luar Negeri</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Table -->
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 50px;">#</th>
+                                <th>Nama Perguruan Tinggi</th>
+                                <th>Program Studi / Subjek</th>
+                                <th>Jenjang</th>
+                                <th>Negara / Lokasi</th>
+                                <th>Tautan / Website Resmi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="univTableBody">
+                            <tr>
+                                <td colspan="6" style="text-align: center; color: #64748b; padding: 2rem;">Memuat daftar perguruan tinggi...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination-container">
+                    <span id="pageInfo" style="font-size: 0.88rem; font-weight: 600; color: #64748b;">Memuat data...</span>
+                    <div style="display: flex; gap: 8px;">
+                        <button class="btn-page" id="prevPageBtn" onclick="changePage(-1)" disabled>◀ Prev</button>
+                        <button class="btn-page" id="nextPageBtn" onclick="changePage(1)" disabled>Next ▶</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- JS LOGIC -->
+    <script>
+        let extractedCvText = "";
+        let currentPage = 1;
+        let totalPages = 1;
+        let searchTimeout = null;
+
+        // On Load Initialize
+        window.addEventListener('DOMContentLoaded', () => {
+            loadUniversityTable(1);
+        });
+
+        // Sidebar Navigation Switcher
+        function switchView(navEl, viewId) {
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            document.querySelectorAll('.view-panel').forEach(panel => panel.classList.remove('active'));
+            
+            navEl.classList.add('active');
+            document.getElementById(viewId).classList.add('active');
+
+            if (viewId === 'view-univ') {
+                loadUniversityTable(1);
+            }
+        }
+
+        // Quick prompt click
+        function quickPrompt(text) {
+            document.getElementById('chatInput').value = text;
+            sendMessage();
+        }
+
+        function handleKeyPress(e) {
+            if (e.key === 'Enter') sendMessage();
+        }
+
+        // Chat CV File Attachment
+        async function handleChatFileUpload(input) {
+            if (!input.files || input.files.length === 0) return;
+            const file = input.files[0];
+
+            const noticeDiv = document.getElementById('chatAttachmentNotice');
+            noticeDiv.style.display = 'block';
+            noticeDiv.innerHTML = `⏳ Memproses CV: ${file.name}...`;
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            try {
+                const res = await fetch('/api/upload-cv', { method: 'POST', body: formData });
+                const data = await res.json();
+
+                if (data.success) {
+                    extractedCvText = data.text;
+                    noticeDiv.innerHTML = `✅ CV '${file.name}' terlampir (${data.char_count} Karakter). Anda dapat menanyakan evaluasi CV di kolom chat!`;
+                    noticeDiv.style.background = '#dcfce7';
+                    noticeDiv.style.color = '#15803d';
+                    document.getElementById('btnEvalCv').disabled = false;
+                } else {
+                    noticeDiv.innerHTML = `❌ Gagal membaca CV: ${data.error}`;
+                    noticeDiv.style.background = '#fef2f2';
+                    noticeDiv.style.color = '#991b1b';
+                }
+            } catch (err) {
+                noticeDiv.innerHTML = `❌ Error: ${err}`;
+            }
+        }
+
+        // CV Tab File Upload
+        async function handleCvTabUpload(input) {
+            if (!input.files || input.files.length === 0) return;
+            const file = input.files[0];
+
+            const statusDiv = document.getElementById('cvTabFileStatus');
+            statusDiv.style.display = 'block';
+            statusDiv.innerHTML = '⏳ Mengekstrak teks CV...';
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            try {
+                const res = await fetch('/api/upload-cv', { method: 'POST', body: formData });
+                const data = await res.json();
+
+                if (data.success) {
+                    extractedCvText = data.text;
+                    statusDiv.innerHTML = `✅ CV '${file.name}' berhasil diekstrak (${data.char_count} Karakter)!`;
+                    statusDiv.style.background = '#dcfce7';
+                    statusDiv.style.color = '#15803d';
+                    document.getElementById('btnEvalCv').disabled = false;
+                } else {
+                    statusDiv.innerHTML = `❌ Gagal: ${data.error}`;
+                    statusDiv.style.background = '#fef2f2';
+                    statusDiv.style.color = '#991b1b';
+                }
+            } catch (err) {
+                statusDiv.innerHTML = `❌ Error unggah: ${err}`;
+            }
+        }
+
+        function getPreferencesString() {
+            return "Program Beasiswa LPDP Resmi";
+        }
+
+        // Send Chat Message
+        async function sendMessage() {
+            const inputEl = document.getElementById('chatInput');
+            const message = inputEl.value.trim();
+            if (!message) return;
+
+            const chatMessages = document.getElementById('chatMessages');
+            const sendBtn = document.getElementById('sendBtn');
+
+            // Append User Message
+            const userBubble = document.createElement('div');
+            userBubble.className = 'chat-bubble user';
+            userBubble.innerHTML = `<p>${escapeHtml(message)}</p>`;
+            chatMessages.appendChild(userBubble);
+
+            inputEl.value = '';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // Disable input while processing
+            sendBtn.disabled = true;
+            sendBtn.innerHTML = `<span class="loading-spinner"></span>`;
+
+            // Placeholder Assistant Bubble
+            const assistantBubble = document.createElement('div');
+            assistantBubble.className = 'chat-bubble assistant';
+            assistantBubble.innerHTML = `<p style="color: #64748b;">⚡ Asisten SAPA LPDP sedang menganalisis panduan resmi...</p>`;
+            chatMessages.appendChild(assistantBubble);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            try {
+                const res = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        question: message,
+                        cv_info: extractedCvText ? extractedCvText.substring(0, 2500) : "Tidak ada CV diunggah.",
+                        preferences: getPreferencesString()
+                    })
+                });
+
+                const data = await res.json();
+
+                if (data.blocked) {
+                    assistantBubble.className = 'chat-bubble blocked';
+                    assistantBubble.innerHTML = `<strong>🛡️ [PERMINTAAN DIBLOKIR PANDUAN KEAMANAN]</strong><br><br>${data.reason}`;
+                } else {
+                    assistantBubble.innerHTML = marked.parse(data.response);
+                }
+            } catch (err) {
+                assistantBubble.innerHTML = `<p style="color:red">Terjadi kendala koneksi: ${err}. Silakan coba lagi.</p>`;
+            } finally {
+                sendBtn.disabled = false;
+                sendBtn.innerHTML = `<span>Kirim</span> 🚀`;
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+        }
+
+        // Evaluate CV
+        async function evaluateCV() {
+            const btn = document.getElementById('btnEvalCv');
+            const resultBox = document.getElementById('cvEvalResult');
+            const resultBody = document.getElementById('cvEvalBody');
+
+            if (!extractedCvText) return;
+
+            btn.disabled = true;
+            btn.innerHTML = `<span class="loading-spinner"></span> Menganalisis CV Anda...`;
+            resultBox.style.display = 'block';
+            resultBody.innerHTML = `<p style="color: #64748b;">⚡ Sedang mengevaluasi skor kelayakan dan poin kritis...</p>`;
+
+            try {
+                const res = await fetch('/api/evaluate-cv', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        cv_text: extractedCvText,
+                        preferences: getPreferencesString()
+                    })
+                });
+                const data = await res.json();
+                resultBody.innerHTML = marked.parse(data.evaluation);
+            } catch (err) {
+                resultBody.innerHTML = `<p style="color:red">Error evaluasi CV: ${err}</p>`;
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = `<span>Jalankan Evaluasi CV Komprehensif</span> 🚀`;
+            }
+        }
+
+        // Load University Table
+        function debounceUnivSearch() {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                loadUniversityTable(1);
+            }, 300);
+        }
+
+        async function loadUniversityTable(page = 1) {
+            currentPage = page;
+            const tbody = document.getElementById('univTableBody');
+            const q = document.getElementById('tableSearchQuery').value.trim();
+            const jenjang = document.getElementById('tableJenjangSelect').value;
+            const lokasi = document.getElementById('tableLokasiSelect').value;
+
+            tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding: 2rem; color: #64748b;">Mencari data perguruan tinggi...</td></tr>`;
+
+            try {
+                const res = await fetch(`/api/universities?q=${encodeURIComponent(q)}&jenjang=${encodeURIComponent(jenjang)}&lokasi=${encodeURIComponent(lokasi)}&page=${page}&limit=50`);
+                const result = await res.json();
+
+                totalPages = result.total_pages || 1;
+                document.getElementById('pageInfo').innerText = `Menampilkan ${result.data.length} dari ${result.total} Perguruan Tinggi (Halaman ${result.page} dari ${totalPages})`;
+
+                document.getElementById('prevPageBtn').disabled = currentPage <= 1;
+                document.getElementById('nextPageBtn').disabled = currentPage >= totalPages;
+
+                if (!result.data || result.data.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding: 2rem; color: #94a3b8;">Tidak ada perguruan tinggi ditemukan.</td></tr>`;
+                    return;
+                }
+
+                let html = '';
+                const startNum = (currentPage - 1) * 50 + 1;
+                result.data.forEach((item, index) => {
+                    const webUrl = item.website || `https://www.google.com/search?q=${encodeURIComponent(item.universitas)}+official+website`;
+
+                    html += `
+                        <tr>
+                            <td>${startNum + index}</td>
+                            <td><strong>${escapeHtml(item.universitas)}</strong></td>
+                            <td>${escapeHtml(item.prodi)}</td>
+                            <td><strong style="color:var(--primary);">${escapeHtml(item.jenjang)}</strong></td>
+                            <td>${escapeHtml(item.negara || item.lokasi)}</td>
+                            <td>
+                                <a href="${webUrl}" target="_blank" title="Buka website resmi ${escapeHtml(item.universitas)}">
+                                    🌐 Kunjungi Website ↗
+                                </a>
+                            </td>
+                        </tr>
+                    `;
+                });
+                tbody.innerHTML = html;
+            } catch (err) {
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:red; padding: 2rem;">Gagal memuat data: ${err}</td></tr>`;
+            }
+        }
+
+        function changePage(delta) {
+            const newPage = currentPage + delta;
+            if (newPage >= 1 && newPage <= totalPages) {
+                loadUniversityTable(newPage);
+            }
+        }
+
+        function escapeHtml(text) {
+            return (text || '')
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+    </script>
+</body>
+</html>
