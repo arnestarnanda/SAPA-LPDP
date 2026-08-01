@@ -294,13 +294,4 @@ print("Status Blokir:", res_attack)
 
 ---
 
-## 🏆 Hackathon Compliance Checklist
-
-- [x] **Gemma Model Centrality:** Powered by `publishers/google/models/gemma-4-26b-a4b-it-maas` on Vertex AI Model Garden.
-- [x] **Antigravity Development:** Designed and orchestrated within Google Antigravity Agentic IDE.
-- [x] **Agentic Guardrails:** Integrated 5-layer safety architecture (`guardrails.py`).
-- [x] **RAG Chunking Strategy:** Implemented `RecursiveCharacterTextSplitter` (`chunk_size=1000`, `chunk_overlap=200`).
-- [x] **Live Agentic Tools:** Built-in **Live Web Scraper Tool** for scraping official university websites.
-- [x] **Real-World Dataset:** Ingested 30 official LPDP policy documents and 14.442 university records.
-- [x] **Cloud Shell Web Preview Ready:** Native FastAPI execution on port 8080.
 
