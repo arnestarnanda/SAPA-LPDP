@@ -131,8 +131,6 @@ SAPA-LPDP/
 
 SAPA LPDP menyediakan fitur analisis CV otomatis yang mengevaluasi rekam jejak akademik, kepemimpinan, dan kesesuaian dokumen pendaftar terhadap kriteria reviewer resmi LPDP.
 
-File contoh CV pendaftar telah tersedia dalam repository:
-📄 **[`CV_MUH ARNESTA ARNANDA_Testing.pdf`](file:///home/devstar9569/SAPA-LPDP/CV_MUH%20ARNESTA%20ARNANDA_Testing.pdf)** (3 Halaman, ~12.182 Karakter Teks).
 
 ### 🖥️ 1. Menggunakan Antarmuka Web (Web UI Preview)
 
@@ -142,9 +140,9 @@ File contoh CV pendaftar telah tersedia dalam repository:
    ```
 2. Buka **Web Preview** di port `8080`.
 3. Di sidebar navigasi sebelah kiri, klik menu **📊 Evaluasi & Analisis CV**.
-4. Klik kotak unggah file dan pilih berkas **`CV_MUH ARNESTA ARNANDA_Testing.pdf`** (atau lakukan *drag & drop* file).
+4. Klik kotak unggah file dan pilih berkas (atau lakukan *drag & drop* file).
 5. Sistem akan mengekstrak teks CV secara otomatis hingga muncul indikator hijau:
-   `✅ CV 'CV_MUH ARNESTA ARNANDA_Testing.pdf' berhasil diekstrak (12182 Karakter)!`
+   `✅ CV 'CV_Testing.pdf' berhasil diekstrak (12182 Karakter)!`
 6. Klik tombol **`Jalankan Evaluasi CV Komprehensif 🚀`**.
 7. Model **Gemma 4 26B** akan menganalisis dan menampilkan:
    - **Skor Kelayakan Keseluruhan** (Skala 0 - 100).
@@ -161,15 +159,15 @@ File contoh CV pendaftar telah tersedia dalam repository:
 #### Step A: Unggah & Ekstraksi Teks CV (`POST /api/upload-cv`)
 ```bash
 curl -X POST "http://localhost:8080/api/upload-cv" \
-     -F "file=@CV_MUH ARNESTA ARNANDA_Testing.pdf"
+     -F "file=@CV_Testing.pdf"
 ```
 **Respon JSON:**
 ```json
 {
   "success": true,
-  "filename": "CV_MUH ARNESTA ARNANDA_Testing.pdf",
+  "filename": "CV_Testing.pdf",
   "char_count": 12182,
-  "text": "MUH. ARNESTA ARNANDA \n085117334982 | arnestarnanda@gmail.com..."
+  "text": "arnestarnanda@gmail.com..."
 }
 ```
 
@@ -178,7 +176,7 @@ curl -X POST "http://localhost:8080/api/upload-cv" \
 curl -X POST "http://localhost:8080/api/evaluate-cv" \
      -H "Content-Type: application/json" \
      -d '{
-       "cv_text": "MUH. ARNESTA ARNANDA \n085117334982 | arnestarnanda@gmail.com | https://www.linkedin.com/in/arnestarnanda/...",
+       "cv_text": "arnestarnanda@gmail.com | https://www.linkedin.com/in/arnestarnanda/...",
        "preferences": "Program Beasiswa LPDP Reguler 2025"
      }'
 ```
@@ -193,7 +191,7 @@ import requests
 BASE_URL = "http://localhost:8080"
 
 # 1. Upload file CV PDF
-pdf_path = "CV_MUH ARNESTA ARNANDA_Testing.pdf"
+pdf_path = "CV_Testing.pdf"
 with open(pdf_path, "rb") as f:
     upload_res = requests.post(f"{BASE_URL}/api/upload-cv", files={"file": f}).json()
 
